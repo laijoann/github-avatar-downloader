@@ -1,10 +1,19 @@
-var request = require('request');
+const request = require('request');
+
+const GITHUB_USER = "laijoann";
+const GITHUB_TOKEN = "aaaf82d1dabd9d63b70f5aaa365f5e13dc671b84"; //is this supposed to be a string or a number
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
-  // ...
+  let requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+
+
+
+  console.log(requestURL);
+  //to validate requestURL
+
 }
 
 getRepoContributors("jquery", "jquery", function(err, result) {
