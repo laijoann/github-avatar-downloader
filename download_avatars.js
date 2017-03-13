@@ -1,9 +1,12 @@
+//TODO: for optimal UX, look into Javascript promises to insert 'All downloads completed' when all avatars have been downloaded.
+
 const request = require('request');
 const https = require('https');
 const fs = require('fs');
+const dotenv = require('dotenv').config();
 
-const GITHUB_USER = 'laijoann';
-const GITHUB_TOKEN = 'aaaf82d1dabd9d63b70f5aaa365f5e13dc671b84';
+const GITHUB_USER = process.env.GITHUB_USER;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO_OWNER = process.argv[2];
 const REPO_NAME = process.argv[3];
 
