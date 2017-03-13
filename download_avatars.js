@@ -17,9 +17,8 @@ callback = (error, response, body) => {
       urlList.push(parsedBody[contrib].avatar_url);
     }
     downloadImageByURL(urlList);
-    //TODO: but is this abiding by async?
   }
-}
+} //collects all the avatar URLs into an array, then invokes the downloadImageByURL function
 
 getRepoContributors = (repoOwner, repoName, cb) => {
   let requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
@@ -30,17 +29,17 @@ getRepoContributors = (repoOwner, repoName, cb) => {
     }
   };
   request(options, cb);
-}
+} //collects the url and user-agent to pass into the request method (callback() is also passed as a param)
 
-getRepoContributors(REPO_OWNER, REPO_NAME, callback);
-
-downloadImageByURL = (urlList, conf) => {
+downloadImageByURL = (urlList) => {
   for (contrib in urlList) {
     request.get(urlList[contrib])
     .on('error', (err) => {
       console.error(err);
     })
-    .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'));
+    .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'))
   }
-  console.log("Dowload complete.");
-}
+} //saves avatars into local folder, avatarGallery. Chain of functions end
+
+(REPO_OWNER && REPO_NAME) ? getRepoContributors(REPO_OWNER, REPO_NAME, callback) : console.log("Please specify repo owner and name.")
+//invokes getRepoContributors, and sets off the chain of functions
