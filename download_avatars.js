@@ -1,4 +1,4 @@
-//TODO: for optimal UX, look into Javascript promises to insert 'All downloads completed' when all avatars have been downloaded.
+//TODO FOR THE WEEKEND: for optimal UX, look into Javascript promises to insert 'All downloads completed' when all avatars have been downloaded.
 
 const request = require('request');
 const https = require('https');
