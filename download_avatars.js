@@ -7,6 +7,12 @@ const dotenv = require('dotenv').config();
 
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+if (!GITHUB_USER || !GITHUB_TOKEN) {
+  console.log('Yikes! We seem to be missing the Github user or token..');
+  return;
+}
+
 const REPO_OWNER = process.argv[2];
 const REPO_NAME = process.argv[3];
 
@@ -20,6 +26,9 @@ callback = (error, response, body) => {
       urlList.push(parsedBody[contrib].avatar_url);
     }
     downloadImageByURL(urlList);
+  } else {
+    console.log('Oops! The repo owner/name doesn\'t seem to work..');
+    return;
   }
 } //collects all the avatar URLs into an array, then invokes the downloadImageByURL function
 
@@ -35,6 +44,19 @@ getRepoContributors = (repoOwner, repoName, cb) => {
 } //collects the url and user-agent to pass into the request method (callback() is also passed as a param)
 
 downloadImageByURL = (urlList) => {
+  if (fs.existsSync('./avatarGallery')) {
+    for (contrib in urlList) {
+      request.get(urlList[contrib])
+      .on('error', (err) => {
+        console.error(err);
+      })
+      .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'));
+    }
+  } else {
+    console.log('Please create folder avatarGallery in order to store the avatars!');
+    return;
+  }
+
   for (contrib in urlList) {
     request.get(urlList[contrib])
     .on('error', (err) => {
