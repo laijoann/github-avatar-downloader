@@ -4,6 +4,8 @@ const fs = require('fs');
 
 const GITHUB_USER = "laijoann";
 const GITHUB_TOKEN = "aaaf82d1dabd9d63b70f5aaa365f5e13dc671b84";
+const REPO_OWNER = process.argv[2];
+const REPO_NAME = process.argv[3];
 
 let urlList = [];
 
@@ -30,24 +32,15 @@ getRepoContributors = (repoOwner, repoName, cb) => {
   request(options, cb);
 }
 
-getRepoContributors("jquery", "jquery", callback);
+getRepoContributors(REPO_OWNER, REPO_NAME, callback);
 
-downloadImageByURL = (urlList) => {
+downloadImageByURL = (urlList, conf) => {
   for (contrib in urlList) {
     request.get(urlList[contrib])
     .on('error', (err) => {
       console.error(err);
     })
-    .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'))
-    .on('finish', () => {
-      console.log('Avatar download complete.');
-    })
+    .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'));
   }
+  console.log("Dowload complete.");
 }
-
-
-
-
-
-
-
