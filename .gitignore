@@ -1,3 +1,6 @@
+
+avatarGallery
+
 # Logs
 logs
 *.log
@@ -59,3 +62,6 @@ typings/
 
 # Mac's DS_Store file
 .DS_Store
+
+# Promise library
+promise

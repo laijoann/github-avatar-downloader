@@ -19,6 +19,8 @@
   "homepage": "https://github.com/laijoann/github-avatar-downloader#readme",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "request": "^2.81.0"
+    "promise": "^7.1.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
   }
 }

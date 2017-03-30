@@ -1,5 +1,4 @@
 //TODO FOR THE WEEKEND: for optimal UX, look into Javascript promises to insert 'All downloads completed' when all avatars have been downloaded.
-
 const request = require('request');
 const https = require('https');
 const fs = require('fs');
@@ -55,14 +54,6 @@ downloadImageByURL = (urlList) => {
   } else {
     console.log('Please create folder avatarGallery in order to store the avatars!');
     return;
-  }
-
-  for (contrib in urlList) {
-    request.get(urlList[contrib])
-    .on('error', (err) => {
-      console.error(err);
-    })
-    .pipe(fs.createWriteStream('./avatarGallery/' + contrib + '.jpg'));
   }
 } //saves avatars into local folder, avatarGallery. Chain of functions end
 
